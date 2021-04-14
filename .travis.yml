@@ -4,7 +4,7 @@ python:
 
 services:
   - docker
-  user: $UID:$GID
+  - user: $UID:$GID
 
 before_script: pip install docker-compose
 
