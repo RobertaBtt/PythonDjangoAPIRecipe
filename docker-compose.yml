@@ -15,17 +15,14 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
-      - DB_NAME=app
+      - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASS=pass_for_developing
-      - DB_PORT=5432
     depends_on:
       - db
 
   db:
     image: postgres:10-alpine
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres
