@@ -1,8 +1,9 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework import status
+
 from rest_framework.test import APIClient
+from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
@@ -74,11 +75,9 @@ class PublicUserApiTests(TestCase):
     def test_create_token_invalid_credentials(self):
         """Test token is not created if invalid credentials are given"""
 
-        create_user(email='test@londoncalling.com', \
-                    password='questaPassword98')
+        create_user(email='test@londoncalling.com', password='questaPasrd98')
 
-        payload = {'email': 'test@londoncalling.com', \
-                   'password': 'passwordSbagliata'}
+        payload = {'email': 'test@londlling.com', 'password': 'passSbliata'}
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertNotIn('token', res.data)
@@ -86,8 +85,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_no_user(self):
         """Test that token is not created if user doesn't exist"""
-        payload = {'email': 'test@londoncalling.com', \
-                   'password': 'questaPassword98'}
+        payload = {'email': 'test@londoncalling.com', 'password': 'quesword98'}
         res = self.client.post(TOKEN_URL, payload)
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
