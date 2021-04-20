@@ -2,7 +2,7 @@ import uuid
 import os
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-                                        PermissionsMixin
+    PermissionsMixin
 from django.conf import settings
 
 
@@ -74,6 +74,7 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     """Recipe object"""
+    # If we remove the user, this will remove the recipe as well
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
