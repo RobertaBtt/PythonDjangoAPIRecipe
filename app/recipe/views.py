@@ -61,8 +61,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         tags = self.request.query_params.get('tags')
         ingredients = self.request.query_params.get('ingredients')
         queryset = self.queryset
+
+        # converts our ids to tags with the function params_to_int
         if tags:
             tag_ids = self._params_to_ints(tags)
+            # __ = django syntax to filter on foreign key object
+            # __ in = the function to apply to tags_id
             queryset = queryset.filter(tags__id__in=tag_ids)
         if ingredients:
             ingredient_ids = self._params_to_ints(ingredients)
