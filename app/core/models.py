@@ -1,8 +1,10 @@
 import uuid
 import os
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-    PermissionsMixin
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin)
 from django.conf import settings
 
 
@@ -27,7 +29,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        """Creates and saves a new super user"""
+        """Creates and return a new superuser"""
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True

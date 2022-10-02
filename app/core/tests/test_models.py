@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+#get_user_model is a helpder provided by Django to get the default user model of the User
 
 from core import models
 
@@ -19,7 +20,7 @@ class ModelTests(TestCase):
         password = 'Password123'
         user = get_user_model().objects.create_user(
             email=email,
-            password=password
+            password=password,
         )
 
         self.assertEqual(user.email, email)
@@ -27,10 +28,18 @@ class ModelTests(TestCase):
 
     def test_new_user_email_normalized(self):
         """Test email case insensitive"""
-        email = "test@POPPOY.com"
-        user = get_user_model().objects.create_user(email, "Test123")
+        sample_emails = [
+            ['tests23@GMAIL.com', 'tests23@gmail.com'],
+            ['cancioffino@gmail.COM', 'cancioffino@gmail.com']
+        ]
+        for email, expected in sample_emails:
+            user = get_user_model().objects.create_user(email, 'sample123')
+            self.assertEqual(user.email, expected)
 
-        self.assertEqual(user.email, email.lower())
+    def test_new_user_without_email(self):
+        """Test creating user with no email"""
+        with self.assertRaises(ValueError):
+            get_user_model().objects.create_user('', "ciao")
 
     def test_new_user_invalid_email(self):
         """Test creating user with no email"""
@@ -38,7 +47,7 @@ class ModelTests(TestCase):
             get_user_model().objects.create_user(None, "ciao")
 
     def test_create_super_user(self):
-        """Test new super user"""
+        """Test new superuser"""
         user = get_user_model().objects.create_superuser(
             "email@admin.com",
             "Ciaodk")
