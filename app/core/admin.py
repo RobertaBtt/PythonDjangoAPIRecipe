@@ -24,8 +24,15 @@ class UserAdmin(BaseUserAdmin):
     readonly_fields = ['last_login']
     add_fieldsets = (
         (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')
+            'classes': ('wide',),  #classes isfor Css
+            'fields': (
+                'email',
+                'password1',
+                'password2',
+                'name',
+                'is_active',
+                'is_staff',
+                'is_superuser')
         }),
     )
 
